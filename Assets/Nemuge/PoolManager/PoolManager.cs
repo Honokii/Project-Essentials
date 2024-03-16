@@ -23,19 +23,23 @@ namespace Nemuge.Pooling {
 
         public void InitializePools() {
             foreach (var pool in pools) {
-                var poolTag = pool.poolTag;
-                var poolObject = pool.poolable;
-                var queue = new Queue<Poolable>();
-                
-                for (var i = 0; i < pool.initialCount; i++) {
-                    var pooledObject = Instantiate(poolObject, this.transform);
-                    pooledObject.gameObject.SetActive(false);
-                    pooledObject.poolTag = poolTag;
-                    queue.Enqueue(pooledObject);
-                }
-                
-                _availablePools.Add(poolTag.value, queue);
+                RegisterPool(pool);
             }
+        }
+        
+        public void RegisterPool(Pool pool) {
+            var poolTag = pool.poolTag;
+            var poolObject = pool.poolable;
+            var queue = new Queue<Poolable>();
+                
+            for (var i = 0; i < pool.initialCount; i++) {
+                var pooledObject = Instantiate(poolObject, this.transform);
+                pooledObject.gameObject.SetActive(false);
+                pooledObject.poolTag = poolTag;
+                queue.Enqueue(pooledObject);
+            }
+                
+            _availablePools.Add(poolTag.value, queue);
         }
 
         public Poolable GetPoolable(string poolTag) {
