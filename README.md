@@ -20,7 +20,7 @@ A utility class storing some math methods.
 Utility class for most shared methods.
 
 ## Game Event
-A system that creates events that listeners can detect?
+A system that creates game events and informs its listeners when invoked.
 
 ## Pool Manager
 System for object pooling.
